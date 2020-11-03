@@ -16,7 +16,7 @@ void Maze::MazeGenerator(Point step)
 	Print();
 
 	for (int i = 0; i < 4; i++)
-	{
+	{ DUPA
 		switch (direction[i])
 		{
 		case 0:
