@@ -100,14 +100,14 @@ Maze::~Maze()
 
 void Maze::GenerteMaze()
 {
-	if (height == 0 || width == 0)
+	if (height < 5|| width < 5 )
 	{
-		std::cout << "Nither height nor width can equal 0" << std::endl;
+		std::cout << "Nither height nor width can be smaller than 5" << std::endl;
 		return;
 	}
 	else if (exitNumber == 0 || exitNumber > 4)
 	{
-		std::cout << "Exit number must be higher than 0 and smaller than!" << std::endl;
+		std::cout << "Exit number must be higher than 0 and smaller than 5!" << std::endl;
 		return;
 	}
 	else if (maze != nullptr)
@@ -133,9 +133,9 @@ void Maze::GenerteMaze()
 
 int Maze::SetHeight(int _height)
 {
-	if (_height < 0)
+	if (_height < 4)
 	{
-		std::cout << "Height must be bigger than 0!" << std::endl;
+		std::cout << "Height must be bigger than 4!" << std::endl;
 		return -1;
 	}
 
@@ -145,9 +145,9 @@ int Maze::SetHeight(int _height)
 
 int Maze::SetWidth(int _width)
 {
-	if (_width < 0)
+	if (_width < 5)
 	{
-		std::cout << "Width must be bigger than 0!" << std::endl;
+		std::cout << "Width must be bigger than 4!" << std::endl;
 		return 1;
 	}
 
