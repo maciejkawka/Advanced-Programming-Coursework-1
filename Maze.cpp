@@ -2,7 +2,7 @@
 
 int Maze::IntRandom(int floor, int ceiling)
 {
-	
+	srand(time(NULL));
 	return (rand() % (ceiling-floor+1)) + floor;
 }
 
@@ -65,7 +65,8 @@ void Maze::ExitPointPlacement()
 
 void Maze::CenterSquereGenerator()
 {
-	int squareSide = IntRandom(3, 5); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
+	
+	int squareSide = IntRandom(3, std::min(height, width) - 2); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
 	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
 	int mazeCenter = Center.x+(Center.y)*width;
 
@@ -75,9 +76,6 @@ void Maze::CenterSquereGenerator()
 		for (int j = 0; j < squareSide; j++)
 			maze[startPoint + i * width + j] = 0;
 	}
-
-	maze[width * (height / 2) + (width / 2)] = 'S';
-
 }
 
 
@@ -119,7 +117,6 @@ void Maze::GenerteMaze()
 	}
 
 	maze = new char[height * width];
-
 	for (int i = 0; i < height * width; i++)
 		maze[i] = 'X';
 	
@@ -128,6 +125,8 @@ void Maze::GenerteMaze()
 
 	ExitPointPlacement();
 	CenterSquereGenerator();
+
+	maze[width * (height / 2) + (width / 2)] = 'S';
 	//MazeGenerator(Center);
 
 }
