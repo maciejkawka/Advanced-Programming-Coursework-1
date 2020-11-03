@@ -3,9 +3,11 @@
 
 int main()
 {
+	
 
+	std::cout << 4 % 3 << std::endl;
 
-	Maze* test = new Maze(10, 10, 3);
+	Maze* test = new Maze(6, 8, 3);
 	test->GenerteMaze();
 	test->Print();
 

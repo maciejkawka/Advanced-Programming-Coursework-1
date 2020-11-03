@@ -1,5 +1,35 @@
 #include "Maze.h"
 
+int Maze::IntRandom(int floor, int ceiling)
+{
+	
+	return (rand() % (ceiling-floor+1)) + floor;
+}
+
+void Maze::MazeGenerator(Point step)
+{
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
 void Maze::ExitPointPlacement()
 {
 	Exit = new Point[exitNumber];
@@ -32,6 +62,25 @@ void Maze::ExitPointPlacement()
 		maze[Exit[i].y * width + Exit[i].x] = 'E';
 	}
 }
+
+void Maze::CenterSquereGenerator()
+{
+	int squareSide = IntRandom(3, 5); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
+	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
+	int mazeCenter = Center.x+(Center.y)*width;
+
+	int startPoint = mazeCenter - (squareCenter % squareSide) - width * (squareSide/2);
+	for (int i=0; i<squareSide;i++)
+	{
+		for (int j = 0; j < squareSide; j++)
+			maze[startPoint + i * width + j] = 0;
+	}
+
+	maze[width * (height / 2) + (width / 2)] = 'S';
+
+}
+
+
 
 Maze::Maze() : height(0), width(0), exitNumber(0), maze(nullptr), Exit(nullptr)
 {
@@ -73,10 +122,12 @@ void Maze::GenerteMaze()
 
 	for (int i = 0; i < height * width; i++)
 		maze[i] = 'X';
-	maze[width * (height / 2) + (width / 2)] = 'S';
+	
 	Center.y = height / 2;
 	Center.x = width / 2;
+
 	ExitPointPlacement();
+	CenterSquereGenerator();
 	//MazeGenerator(Center);
 
 }
