@@ -1,5 +1,9 @@
 ﻿#pragma once
 #include<iostream>
+#include <stdio.h>      
+#include <stdlib.h>     
+#include <time.h> 
+#include<algorithm>
 
 struct Point {
 
@@ -18,8 +22,10 @@ private:
 	Point Center;
 	char* maze;
 
+	int IntRandom(int floor, int ceiling);
 	void MazeGenerator(Point step);
 	void ExitPointPlacement();
+	void CenterSquereGenerator();
 
 public:
 	Maze();

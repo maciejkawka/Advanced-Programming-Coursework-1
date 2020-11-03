@@ -3,9 +3,11 @@
 
 int main()
 {
+	
 
+	
 
-	Maze* test = new Maze(10, 10, 3);
+	Maze* test = new Maze(20, 20, 1);
 	test->GenerteMaze();
 	test->Print();
 

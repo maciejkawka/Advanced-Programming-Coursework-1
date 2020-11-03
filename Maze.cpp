@@ -1,5 +1,35 @@
 #include "Maze.h"
 
+int Maze::IntRandom(int floor, int ceiling)
+{
+	srand(time(NULL));
+	return (rand() % (ceiling-floor+1)) + floor;
+}
+
+void Maze::MazeGenerator(Point step)
+{
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
 void Maze::ExitPointPlacement()
 {
 	Exit = new Point[exitNumber];
@@ -33,6 +63,23 @@ void Maze::ExitPointPlacement()
 	}
 }
 
+void Maze::CenterSquereGenerator()
+{
+	
+	int squareSide = IntRandom(3, std::min(height, width) - 2); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
+	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
+	int mazeCenter = Center.x+(Center.y)*width;
+
+	int startPoint = mazeCenter - (squareCenter % squareSide) - width * (squareSide/2);
+	for (int i=0; i<squareSide;i++)
+	{
+		for (int j = 0; j < squareSide; j++)
+			maze[startPoint + i * width + j] = 0;
+	}
+}
+
+
+
 Maze::Maze() : height(0), width(0), exitNumber(0), maze(nullptr), Exit(nullptr)
 {
 	Center.x = 0;
@@ -53,14 +100,14 @@ Maze::~Maze()
 
 void Maze::GenerteMaze()
 {
-	if (height == 0 || width == 0)
+	if (height < 5|| width < 5 )
 	{
-		std::cout << "Nither height nor width can equal 0" << std::endl;
+		std::cout << "Nither height nor width can be smaller than 5" << std::endl;
 		return;
 	}
 	else if (exitNumber == 0 || exitNumber > 4)
 	{
-		std::cout << "Exit number must be higher than 0 and smaller than!" << std::endl;
+		std::cout << "Exit number must be higher than 0 and smaller than 5!" << std::endl;
 		return;
 	}
 	else if (maze != nullptr)
@@ -70,22 +117,25 @@ void Maze::GenerteMaze()
 	}
 
 	maze = new char[height * width];
-
 	for (int i = 0; i < height * width; i++)
 		maze[i] = 'X';
-	maze[width * (height / 2) + (width / 2)] = 'S';
+	
 	Center.y = height / 2;
 	Center.x = width / 2;
+
 	ExitPointPlacement();
+	CenterSquereGenerator();
+
+	maze[width * (height / 2) + (width / 2)] = 'S';
 	//MazeGenerator(Center);
 
 }
 
 int Maze::SetHeight(int _height)
 {
-	if (_height < 0)
+	if (_height < 4)
 	{
-		std::cout << "Height must be bigger than 0!" << std::endl;
+		std::cout << "Height must be bigger than 4!" << std::endl;
 		return -1;
 	}
 
@@ -95,9 +145,9 @@ int Maze::SetHeight(int _height)
 
 int Maze::SetWidth(int _width)
 {
-	if (_width < 0)
+	if (_width < 5)
 	{
-		std::cout << "Width must be bigger than 0!" << std::endl;
+		std::cout << "Width must be bigger than 4!" << std::endl;
 		return 1;
 	}
 
