@@ -23,6 +23,7 @@ private:
 	char* maze;
 
 	int IntRandom(int floor, int ceiling);
+	int RandomDirection(int& array);
 	void MazeGenerator(Point step);
 	void ExitPointPlacement();
 	void CenterSquereGenerator();

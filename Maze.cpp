@@ -6,27 +6,59 @@ int Maze::IntRandom(int floor, int ceiling)
 	return (rand() % (ceiling-floor+1)) + floor;
 }
 
+
+
 void Maze::MazeGenerator(Point step)
 {
+	int direction[4] = { 0,1,2,3 };
+	std::random_shuffle(&direction[0], &direction[4]);
+	system("CLS");
+	Print();
 
+	for (int i = 0; i < 4; i++)
+	{
+		switch (direction[i])
+		{
+		case 0:
+			if (step.y - 2 <=  0 && step.y - 2 !='E')
+				break;
+			if (maze[((step.y - 2) * width) + step.x] == 0)
+				break;
+			maze[((step.y - 1) * width) + step.x] = 0;
+			maze[((step.y - 2) * width) + step.x] = 0;
+			MazeGenerator({ step.x, step.y - 2 });
+			break;
+		case 1:
+			if (step.x + 2 >= width-1 && step.x +2 !='E')
+				break;
+			if (maze[((step.y) * width) + step.x + 2] == 0)
+				break;
+			maze[((step.y) * width) + step.x + 1] = 0;
+			maze[((step.y) * width) + step.x + 2] = 0;
+			MazeGenerator({ step.x + 2, step.y });
+			break;
+		case 2:
+			if (step.y + 2 >= height-1 && step.y + 2 != 'E')
+				break;
+			if (maze[((step.y + 2) * width) + step.x] == 0)
+				break;
+			maze[((step.y + 1) * width) + step.x] = 0;
+			maze[((step.y + 2) * width) + step.x] = 0;
+			MazeGenerator({ step.x, step.y + 2 });
+			break;
+		case 3:
+			if (step.x - 2 <= 0 && step.x + 2 != 'E')
+				break;
+			if (maze[((step.y) * width) + step.x - 2] == 0)
+				return;
+			maze[((step.y) * width) + step.x - 1] = 0;
+			maze[((step.y) * width) + step.x - 2] = 0;
+			MazeGenerator({ step.x - 2, step.y });
+			break;
+		}
+		
 
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 }
 
@@ -124,10 +156,10 @@ void Maze::GenerteMaze()
 	Center.x = width / 2;
 
 	ExitPointPlacement();
-	CenterSquereGenerator();
+	//CenterSquereGenerator();
 
 	maze[width * (height / 2) + (width / 2)] = 'S';
-	//MazeGenerator(Center);
+	MazeGenerator(Center);
 
 }
 
