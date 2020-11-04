@@ -3,11 +3,11 @@
 
 int main()
 {
-	
+	srand(time(NULL));
 
 	
 
-	Maze* test = new Maze(30, 30, 1);
+	Maze* test = new Maze(16, 16, 1);
 	test->GenerteMaze();
 	test->Print();
 
