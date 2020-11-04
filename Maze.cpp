@@ -115,7 +115,7 @@ void Maze::ExitPointPlacement()
 void Maze::CenterSquereGenerator()
 {
 	
-	int squareSide = IntRandom(3, std::min(height, width) - 2); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
+	int squareSide = IntRandom(3, std::min(height, width) - 5); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
 	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
 	int mazeCenter = Center.x+(Center.y)*width;
 
@@ -149,14 +149,19 @@ Maze::~Maze()
 
 void Maze::GenerteMaze()
 {
-	if (height < 5|| width < 5 )
+	if (height < 8|| width < 8 )
 	{
-		std::cout << "Nither height nor width can be smaller than 5" << std::endl;
+		std::cout << "Nither height nor width can be smaller than 8" << std::endl;
+		return;
+	}
+	else if (height % 2 == 0 || width % 2 == 0)
+	{
+		std::cout << "Nither height nor width can be even" << std::endl;
 		return;
 	}
 	else if (exitNumber == 0 || exitNumber > 4)
 	{
-		std::cout << "Exit number must be higher than 0 and smaller than 5!" << std::endl;
+		std::cout << "Exit number must be higher than 0 and smaller than 8!" << std::endl;
 		return;
 	}
 	else if (maze != nullptr)
@@ -172,19 +177,27 @@ void Maze::GenerteMaze()
 	Center.y = height / 2;
 	Center.x = width / 2;
 
-	ExitPointPlacement();
-	//CenterSquereGenerator();
+	
+	
 
+	
+	MazeGenerator({1,1});
+	ExitPointPlacement();
+	CenterSquereGenerator();
 	maze[width * (height / 2) + (width / 2)] = 'S';
-	MazeGenerator(Center);
 
 }
 
 int Maze::SetHeight(int _height)
 {
-	if (_height < 4)
+	if (_height % 2 == 0)
 	{
-		std::cout << "Height must be bigger than 4!" << std::endl;
+		std::cout << "Height cannot be even!" << std::endl;
+		return -1;
+	}
+	if (_height < 8)
+	{
+		std::cout << "Height must be bigger than 7!" << std::endl;
 		return -1;
 	}
 
@@ -194,10 +207,15 @@ int Maze::SetHeight(int _height)
 
 int Maze::SetWidth(int _width)
 {
-	if (_width < 5)
+	if (_width % 2 == 0)
 	{
-		std::cout << "Width must be bigger than 4!" << std::endl;
-		return 1;
+		std::cout << "Width cannot be even!" << std::endl;
+		return -1;
+	}
+	if (_width < 8)
+	{
+		std::cout << "Width must be bigger than 7!" << std::endl;
+		return -1;
 	}
 
 	width = _width;
