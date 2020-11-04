@@ -80,14 +80,14 @@ void Maze::MazeGenerator(Point step)
 }
 
 
-void Maze::PatchFinder(Point step)
+bool Maze::PatchFinder(Point step)
 {  
 	if (step.x<0 || step.x>width - 1 || step.y<0 || step.y>height - 1)
-		return;
+		return false;
 	if (maze[((step.y) * width) + step.x] == 'X' || maze[((step.y) * width) + step.x] == 'o')
-		return;
+		return false;
 	if (maze[((step.y) * width) + step.x] == 'S')
-		return;
+		return true;
 
 	maze[((step.y) * width) + step.x] = 'o';
 	system("CLS");
@@ -100,36 +100,36 @@ void Maze::PatchFinder(Point step)
 
 	if (vector.x <= 0 && vector.y < 0)
 	{
-		PatchFinder({ step.x, step.y + 1 });
-		PatchFinder({ step.x - 1, step.y });
-		PatchFinder({ step.x, step.y - 1 });
-		PatchFinder({ step.x + 1  , step.y });		
+		if (PatchFinder({ step.x, step.y + 1 }) == true) return true;
+		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
+		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
 	}
 	else if (vector.x < 0 && vector.y >= 0)
 	{
-		PatchFinder({ step.x - 1, step.y });
-		PatchFinder({ step.x, step.y - 1 });
-		PatchFinder({ step.x, step.y + 1 });
-		PatchFinder({ step.x + 1  , step.y });
+		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
+		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
+		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
 	}
 	else if (vector.x >= 0 && vector.y > 0)
 	{
-		PatchFinder({ step.x, step.y - 1 });
-		PatchFinder({ step.x + 1  , step.y });
-		PatchFinder({ step.x - 1, step.y });
-		PatchFinder({ step.x, step.y + 1 });
+		if (PatchFinder({ step.x, step.y - 1 }) == true)   return true;
+		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
+		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
 	}
 	else if (vector.x > 0 && vector.y <= 0)
 	{
-		PatchFinder({ step.x + 1  , step.y });
-		PatchFinder({ step.x, step.y + 1 });
-		PatchFinder({ step.x, step.y - 1 });
-		PatchFinder({ step.x - 1, step.y });
+		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
+		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
 	}
 
 	maze[((step.y) * width) + step.x] = 0;
 
-
+	return false;
 	
 }
 
@@ -241,8 +241,8 @@ void Maze::GenerteMaze()
 	
 	
 	maze[width * (height / 2) + (width / 2)] = 'S';
-
-	PatchFinder(Exit[0]);
+	for(int i=0;i<exitNumber;i++)
+		PatchFinder(Exit[i]);
 }
 
 int Maze::SetHeight(int _height)

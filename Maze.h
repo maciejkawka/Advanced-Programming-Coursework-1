@@ -26,7 +26,7 @@ private:
 	int IntRandom(int floor, int ceiling);
 	void SuffleArray(int*arra);
 	void MazeGenerator(Point step);
-	void PatchFinder(Point step);
+	bool PatchFinder(Point step);
 	void ExitPointPlacement();
 	void CenterSquereGenerator();
 
