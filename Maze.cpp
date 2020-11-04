@@ -20,10 +20,6 @@ void Maze::SuffleArray(int *arra)
 
 void Maze::MazeGenerator(Point step)
 {
-	system("CLS");
-	Print();
-	
-	
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
 
