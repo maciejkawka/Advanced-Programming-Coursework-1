@@ -24,8 +24,7 @@ void Maze::MazeGenerator(Point step)
 	
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
-		Print();
-		system("CLS");
+
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -33,36 +32,36 @@ void Maze::MazeGenerator(Point step)
 			{
 			case 0:
 				if (step.y - 2 <= 0)
-					break;
+					continue;
 				if (maze[((step.y - 2) * width) + step.x] == 0)
-					break;
+					continue;
 				maze[((step.y - 1) * width) + step.x] = 0;
 				maze[((step.y - 2) * width) + step.x] = 0;
 				MazeGenerator({ step.x, step.y - 2 });
 				break;
 			case 1:
 				if (step.x + 2 >= width - 1)
-					break;
+					continue;
 				if (maze[((step.y) * width) + step.x + 2] == 0)
-					break;
+					continue;
 				maze[((step.y) * width) + step.x + 1] = 0;
 				maze[((step.y) * width) + step.x + 2] = 0;
 				MazeGenerator({ step.x + 2, step.y });
 				break;
 			case 2:
 				if (step.y + 2 >= height - 1)
-					break;
+					continue;
 				if (maze[((step.y + 2) * width) + step.x] == 0)
-					break;
+					continue;
 				maze[((step.y + 1) * width) + step.x] = 0;
 				maze[((step.y + 2) * width) + step.x] = 0;
 				MazeGenerator({ step.x, step.y + 2 });
 				break;
 			case 3:
 				if (step.x - 2 <= 0)
-					break;
+					continue;
 				if (maze[((step.y) * width) + step.x - 2] == 0)
-					return;
+					continue;
 				maze[((step.y) * width) + step.x - 1] = 0;
 				maze[((step.y) * width) + step.x - 2] = 0;
 				MazeGenerator({ step.x - 2, step.y });
