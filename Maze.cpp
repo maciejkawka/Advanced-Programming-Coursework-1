@@ -20,8 +20,8 @@ void Maze::SuffleArray(int *arra)
 
 void Maze::MazeGenerator(Point step)
 {
-	system("CLS");
-	Print();
+	//system("CLS");
+	//Print();
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
 
@@ -89,14 +89,15 @@ bool Maze::PatchFinder(Point step)
 	if (maze[((step.y) * width) + step.x] == 'S')
 		return true;
 
+	//system("CLS");
+	
 	maze[((step.y) * width) + step.x] = 'o';
-	system("CLS");
-	Print();
+	//Print();
 
 
 	Point vector;
 	vector.x = Center.x - step.x;
-	vector.y = -Center.y - step.y;
+	vector.y = -(Center.y - step.y);
 
 	if (vector.x <= 0 && vector.y < 0)
 	{
@@ -243,6 +244,8 @@ void Maze::GenerteMaze()
 	maze[width * (height / 2) + (width / 2)] = 'S';
 	for(int i=0;i<exitNumber;i++)
 		PatchFinder(Exit[i]);
+
+	ExitPointPlacement();
 }
 
 int Maze::SetHeight(int _height)
