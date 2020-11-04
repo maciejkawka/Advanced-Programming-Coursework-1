@@ -20,6 +20,8 @@ void Maze::SuffleArray(int *arra)
 
 void Maze::MazeGenerator(Point step)
 {
+	system("CLS");
+	Print();
 	
 	
 		int direction[4] = { 0,1,2,3 };
@@ -114,8 +116,7 @@ void Maze::ExitPointPlacement()
 
 void Maze::CenterSquereGenerator()
 {
-	
-	int squareSide = IntRandom(3, std::min(height, width) - 5); //Docelowo zmienic na wymiar uzaleniony od wielkosci labiryntu
+	int squareSide = IntRandom(3, std::min(height, width) - 5);
 	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
 	int mazeCenter = Center.x+(Center.y)*width;
 
@@ -181,10 +182,11 @@ void Maze::GenerteMaze()
 	
 
 	
-	MazeGenerator({1,1});
+	
 	ExitPointPlacement();
 	CenterSquereGenerator();
 	maze[width * (height / 2) + (width / 2)] = 'S';
+	MazeGenerator({1,1});
 
 }
 

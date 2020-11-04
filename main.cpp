@@ -7,7 +7,7 @@ int main()
 
 	
 
-	Maze* test = new Maze(41, 17, 4);
+	Maze* test = new Maze(9, 9, 4);
 
 	test->GenerteMaze();
 	test->Print();
