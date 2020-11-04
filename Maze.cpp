@@ -20,6 +20,8 @@ void Maze::SuffleArray(int *arra)
 
 void Maze::MazeGenerator(Point step)
 {
+	system("CLS");
+	Print();
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
 
@@ -181,8 +183,9 @@ void Maze::GenerteMaze()
 	
 	ExitPointPlacement();
 	CenterSquereGenerator();
-	maze[width * (height / 2) + (width / 2)] = 'S';
+	
 	MazeGenerator({1,1});
+	maze[width * (height / 2) + (width / 2)] = 'S';
 
 }
 
