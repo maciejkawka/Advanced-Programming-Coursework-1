@@ -21,6 +21,7 @@ private:
 	Point* Exit;
 	Point Center;
 	char* maze;
+	int squareSide;
 
 	int IntRandom(int floor, int ceiling);
 	void SuffleArray(int*arra);
