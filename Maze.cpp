@@ -289,14 +289,13 @@ int Maze::SetExitNumber(int _exitNumber)
 
 void Maze::Reset()
 {
-	if (maze = nullptr)
+	if (maze == nullptr)
 		std::cout << "Maze is not generated!!" << std::endl;
 	delete[] maze;
 	maze = nullptr;
 	delete[] Exit;
 	Exit = nullptr;
-	delete path;
-	path = nullptr;
+	path->clear();
 	height = 0;
 	width = 0;
 	Center.x = 0;
@@ -320,8 +319,11 @@ void Maze::Print() const
 
 void Maze::LoadMaze(std::string filePath)
 {
-	std::ifstream file;
+	if (height != 0 || width != 0)
+		return;
 
+	std::ifstream file;
+	
 	file.open(filePath, std::ios::in);
 	if (file.good())
 	{

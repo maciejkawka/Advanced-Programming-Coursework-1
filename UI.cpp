@@ -83,6 +83,8 @@ void UI::Reset()
 
 void UI::Load()
 {
+	if (mainMaze->IsGenerated())
+		return;
 	system("CLS");
 	std::cout << "Enter tile name ";
 	std::string input;
