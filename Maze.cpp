@@ -17,8 +17,6 @@ void Maze::SuffleArray(int *arra)
 
 void Maze::RecursiveMazeGenerator(Point step)
 {
-	//system("CLS");
-	//Print();
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
 
@@ -74,12 +72,9 @@ bool Maze::RecursivePathFinder(Point step)
 		return false;	
 	if (maze[((step.y) * width) + step.x] == 'S')
 		return true;
-
-	system("CLS");
 	
 	maze[((step.y) * width) + step.x] = 'o';
 	path->push_back(step);
-	Print();
 
 	Point vector;
 	vector.x = Center.x - step.x;
@@ -233,9 +228,8 @@ void Maze::GenerteMaze()
 	for (int i = 0; i < exitNumber; i++)
 	{
 		RecursivePathFinder(Exit[i]);
-		for(int j=0;j<height*width;j++)
-			if (maze[j]=='o')
-				maze[j]=' ';
+		for (int i = 0; i < path->size(); i++)
+			maze[((path->at(i).y) * width) + path->at(i).x] = ' ';
 	}
 
 	for (int i = 0; i < path->size(); i++)
