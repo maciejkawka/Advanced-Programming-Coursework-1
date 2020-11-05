@@ -21,11 +21,4 @@ public:
 	void Save();
 	void Welcome();
 	void Print();
-
-
-
-
-
-
-
 };

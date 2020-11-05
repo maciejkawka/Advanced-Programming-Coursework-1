@@ -17,9 +17,8 @@ void UI::Welcome()
 
 void UI::Print()
 {
-	if (!mainMaze->IsGenerated())
-		return;
-	std::cout << "MAZE:" << std::endl;
+
+	std::cout << "MAZE:" << std::endl << std::endl;
 	mainMaze->Print();
 }
 
@@ -46,25 +45,20 @@ UI::~UI()
 
 void UI::SetDimentions()
 {
-	if (mainMaze->IsGenerated())
-		return;
+
 	system("CLS");
 	std::cout << "Set Dimensions." << std::endl;
 	std::cout << "Width: ";
 	while (mainMaze->SetWidth(InputInt()));
-
 	std::cout << "Height: ";
 	while (mainMaze->SetHeight(InputInt()));
 }
 
 void UI::SetExitsNumber()
 {
-	if (mainMaze->IsGenerated())
-		return;
 	system("CLS");
 	std::cout << "Set Number of Exits" << std::endl;
 	while (mainMaze->SetExitNumber(InputInt()));
-
 }
 
 void UI::GenerateMaze()
@@ -83,8 +77,7 @@ void UI::Reset()
 
 void UI::Load()
 {
-	if (mainMaze->IsGenerated())
-		return;
+
 	system("CLS");
 	std::cout << "Enter tile name ";
 	std::string input;

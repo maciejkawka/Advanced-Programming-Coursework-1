@@ -253,7 +253,11 @@ int Maze::SetHeight(int _height)
 		std::cout << "Height must be bigger than 7!" << std::endl;
 		return -1;
 	}
-
+	if (maze != nullptr)
+	{
+		std::cout << "Maze has been already generated" << std::endl;
+		return 0;
+	}
 	height = _height;
 	return 0;
 }
@@ -270,7 +274,11 @@ int Maze::SetWidth(int _width)
 		std::cout << "Width must be bigger than 7!" << std::endl;
 		return -1;
 	}
-
+	if (maze != nullptr)
+	{
+		std::cout << "Maze has been already generated" << std::endl;
+		return -1;
+	}
 	width = _width;
 	return 0;
 }
@@ -280,7 +288,12 @@ int Maze::SetExitNumber(int _exitNumber)
 	if (_exitNumber < 0 || _exitNumber>4)
 	{
 		std::cout << "Exit number must be bigger than 0 and smaller than 5!" << std::endl;
-		return 1;
+		return -1;
+	}
+	if (maze != nullptr)
+	{
+		std::cout << "Maze has been already generated" << std::endl;
+		return 0;
 	}
 
 	exitNumber = _exitNumber;
@@ -291,6 +304,7 @@ void Maze::Reset()
 {
 	if (maze == nullptr)
 		std::cout << "Maze is not generated!!" << std::endl;
+	
 	delete[] maze;
 	maze = nullptr;
 	delete[] Exit;
@@ -300,13 +314,14 @@ void Maze::Reset()
 	width = 0;
 	Center.x = 0;
 	Center.y = 0;
+	exitNumber = 0;
 }
 
 void Maze::Print() const
 {
 	if (maze == nullptr)
 	{
-		std::cout << "Maze cannot be generated!!" << std::endl;
+		std::cout << "Maze cannot be printed!!" << std::endl;
 		return;
 	}
 	for (int i = 0; i < height; i++)
@@ -319,8 +334,11 @@ void Maze::Print() const
 
 void Maze::LoadMaze(std::string filePath)
 {
-	if (height != 0 || width != 0)
+	if (maze != nullptr|| height != 0 || width != 0)
+	{
+		std::cout << "Maze has been already generated" << std::endl;
 		return;
+	}
 
 	std::ifstream file;
 	
