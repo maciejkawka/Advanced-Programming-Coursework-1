@@ -1,32 +1,43 @@
 #include"Maze.h"
-
+#include"UI.h"
 
 int main()
 {
-	srand(time(NULL));
+	UI main;
+	int input;
+	do {
+		
+		main.Welcome();
+		main.Print();
+		std::cin >> input;
+		switch (input)
+		{
+		case 0:
+			exit(0);
+		case 1:
+			main.SetDimentions();
+			break;
+		case 2:
+			main.SetExitsNumber();
+			break;
+		case 3:
+			main.GenerateMaze();
+			break;
+		case 4:
+			main.Save();
+			break;
+		case 5:
+			main.Load();
+			break;
+		case 6:
+			main.Reset();
+			break;
+		default:
+			std::cout << "Enter number 0 to 7";
+			system("pause");
+			break;
+		}
 
-	
-
-	Maze* test = new Maze(19, 19, 3);
-	test->GenerteMaze();
-	test->Print();
-	test->SaveMaze("1.txt");
-
-
-	Maze* elo = new Maze();
-	elo->LoadMaze("TEST.txt");
-	elo->GenerteMaze();
-	elo->Print();
-	
-	Maze* elo1 = new Maze();
-	elo1->LoadMaze("1.txt");
-	elo1->GenerteMaze();
-	elo1->Print();
-
-
-	delete test;
-
-	std::cin.get();
-
+	} while (true);
 
 }

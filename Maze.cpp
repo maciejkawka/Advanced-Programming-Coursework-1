@@ -287,6 +287,22 @@ int Maze::SetExitNumber(int _exitNumber)
 	return 0;
 }
 
+void Maze::Reset()
+{
+	if (maze = nullptr)
+		std::cout << "Maze is not generated!!" << std::endl;
+	delete[] maze;
+	maze = nullptr;
+	delete[] Exit;
+	Exit = nullptr;
+	delete path;
+	path = nullptr;
+	height = 0;
+	width = 0;
+	Center.x = 0;
+	Center.y = 0;
+}
+
 void Maze::Print() const
 {
 	if (maze == nullptr)

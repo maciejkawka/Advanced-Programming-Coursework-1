@@ -42,11 +42,12 @@ public:
 	int SetHeight(int _height);
 	int SetWidth(int _width);
 	int SetExitNumber(int _exitNumber);
+	void Reset();
 	void Print() const;
 	inline int GetHeight() const { return height; }
 	inline int GetWidht() const { return width; }
 	inline int GetExitNumer() const { return exitNumber; }
-
+	inline bool IsGenerated() const { return maze==nullptr?false:true; }
 
 
 	void LoadMaze(std::string filePath);
