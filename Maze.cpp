@@ -84,15 +84,16 @@ bool Maze::PatchFinder(Point step)
 {  
 	if (step.x<0 || step.x>width - 1 || step.y<0 || step.y>height - 1)
 		return false;
-	if (maze[((step.y) * width) + step.x] == 'X' || maze[((step.y) * width) + step.x] == 'o')
-		return false;
+	if (maze[((step.y) * width) + step.x] == 'X' || maze[((step.y) * width) + step.x] == 'o')		
+		return false;	
 	if (maze[((step.y) * width) + step.x] == 'S')
 		return true;
 
-	//system("CLS");
+	system("CLS");
 	
 	maze[((step.y) * width) + step.x] = 'o';
-	//Print();
+	path->push_back(step);
+	Print();
 
 
 	Point vector;
@@ -128,7 +129,8 @@ bool Maze::PatchFinder(Point step)
 		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
 	}
 
-	maze[((step.y) * width) + step.x] = 0;
+	maze[((step.y) * width) + step.x] = ' ';
+	path->pop_back();
 
 	return false;
 	
@@ -137,6 +139,7 @@ bool Maze::PatchFinder(Point step)
 void Maze::ExitPointPlacement()
 {
 	Exit = new Point[exitNumber];
+	path = new std::vector<Point>();
 
 	for (int i = 0; i < exitNumber; i++)
 	{
@@ -183,13 +186,13 @@ void Maze::CenterSquereGenerator()
 
 
 
-Maze::Maze() : height(0), width(0), exitNumber(0), maze(nullptr), Exit(nullptr)
+Maze::Maze() : height(0), width(0), exitNumber(0), maze(nullptr), Exit(nullptr),path(nullptr)
 {
 	Center.x = 0;
 	Center.y = 0;
 }
 
-Maze::Maze(int _height, int _width, int _extitNumber) :height(_height), width(_width), exitNumber(_extitNumber), maze(nullptr), Exit(nullptr)
+Maze::Maze(int _height, int _width, int _extitNumber) :height(_height), width(_width), exitNumber(_extitNumber), maze(nullptr), Exit(nullptr), path(nullptr)
 {
 	Center.x = 0;
 	Center.y = 0;
@@ -242,9 +245,18 @@ void Maze::GenerteMaze()
 	
 	
 	maze[width * (height / 2) + (width / 2)] = 'S';
-	for(int i=0;i<exitNumber;i++)
+	for (int i = 0; i < exitNumber; i++)
+	{
 		PatchFinder(Exit[i]);
+		for(int j=0;j<height*width;j++)
+			if (maze[j]=='o')
+				maze[j]=' ';
+	}
 
+	for (int i = 0; i < path->size(); i++)
+		maze[((path->at(i).y) * width) + path->at(i).x] = 'o';
+	
+	
 	ExitPointPlacement();
 }
 

@@ -4,6 +4,7 @@
 #include <stdlib.h>     
 #include <time.h> 
 #include<algorithm>
+#include<vector>
 
 struct Point {
 
@@ -21,7 +22,7 @@ private:
 	Point* Exit;
 	Point Center;
 	char* maze;
-	
+	std::vector<Point>* path;
 
 	int IntRandom(int floor, int ceiling);
 	void SuffleArray(int*arra);
