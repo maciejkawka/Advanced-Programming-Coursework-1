@@ -1,6 +1,6 @@
 #include "Maze.h"
 
-int Maze::IntRandom(int floor, int ceiling)
+int Maze::GetRandomInt(int floor, int ceiling)
 {
 	
 	return (rand() % (ceiling-floor+1)) + floor;
@@ -8,7 +8,6 @@ int Maze::IntRandom(int floor, int ceiling)
 
 void Maze::SuffleArray(int *arra)
 {
-	
 	for (int i = 3; i > 0; i--)
 	{
 		int j = rand() % (i + 1);
@@ -16,15 +15,12 @@ void Maze::SuffleArray(int *arra)
 	}
 }
 
-
-
-void Maze::MazeGenerator(Point step)
+void Maze::RecursiveMazeGenerator(Point step)
 {
 	//system("CLS");
 	//Print();
 		int direction[4] = { 0,1,2,3 };
 		SuffleArray(direction);
-
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -33,58 +29,48 @@ void Maze::MazeGenerator(Point step)
 			case 0:
 				if (step.y - 2 <= 0)
 					continue;
-				if (maze[((step.y - 2) * width) + step.x] == 0)
+				if (maze[((step.y - 2) * width) + step.x] == ' ')
 					continue;
-				maze[((step.y - 1) * width) + step.x] = 0;
-				maze[((step.y - 2) * width) + step.x] = 0;
-				MazeGenerator({ step.x, step.y - 2 });
+				maze[((step.y - 1) * width) + step.x] = ' ';
+				maze[((step.y - 2) * width) + step.x] =  ' ';
+				RecursiveMazeGenerator({ step.x, step.y - 2 });
 				break;
 			case 1:
 				if (step.x + 2 >= width - 1)
 					continue;
-				if (maze[((step.y) * width) + step.x + 2] == 0)
+				if (maze[((step.y) * width) + step.x + 2] == ' ')
 					continue;
-				maze[((step.y) * width) + step.x + 1] = 0;
-				maze[((step.y) * width) + step.x + 2] = 0;
-				MazeGenerator({ step.x + 2, step.y });
+				maze[((step.y) * width) + step.x + 1] = ' ';
+				maze[((step.y) * width) + step.x + 2] = ' ';
+				RecursiveMazeGenerator({ step.x + 2, step.y });
 				break;
 			case 2:
 				if (step.y + 2 >= height - 1)
 					continue;
-				if (maze[((step.y + 2) * width) + step.x] == 0)
+				if (maze[((step.y + 2) * width) + step.x] == ' ')
 					continue;
-				maze[((step.y + 1) * width) + step.x] = 0;
-				maze[((step.y + 2) * width) + step.x] = 0;
-				MazeGenerator({ step.x, step.y + 2 });
+				maze[((step.y + 1) * width) + step.x] = ' ';
+				maze[((step.y + 2) * width) + step.x] = ' ';
+				RecursiveMazeGenerator({ step.x, step.y + 2 });
 				break;
 			case 3:
 				if (step.x - 2 <= 0)
 					continue;
-				if (maze[((step.y) * width) + step.x - 2] == 0)
+				if (maze[((step.y) * width) + step.x - 2] == ' ')
 					continue;
-				maze[((step.y) * width) + step.x - 1] = 0;
-				maze[((step.y) * width) + step.x - 2] = 0;
-				MazeGenerator({ step.x - 2, step.y });
+				maze[((step.y) * width) + step.x - 1] = ' ';
+				maze[((step.y) * width) + step.x - 2] = ' ';
+				RecursiveMazeGenerator({ step.x - 2, step.y });
 				break;
 			}
-
-
-
-
-
 		}
-		
-	
-
-
 }
 
-
-bool Maze::PatchFinder(Point step)
+bool Maze::RecursivePathFinder(Point step)
 {  
 	if (step.x<0 || step.x>width - 1 || step.y<0 || step.y>height - 1)
 		return false;
-	if (maze[((step.y) * width) + step.x] == 'X' || maze[((step.y) * width) + step.x] == 'o')		
+	if (maze[((step.y) * width) + step.x] == 'X' || maze[((step.y) * width) + step.x] == 'o')
 		return false;	
 	if (maze[((step.y) * width) + step.x] == 'S')
 		return true;
@@ -95,38 +81,37 @@ bool Maze::PatchFinder(Point step)
 	path->push_back(step);
 	Print();
 
-
 	Point vector;
 	vector.x = Center.x - step.x;
 	vector.y = -(Center.y - step.y);
 
 	if (vector.x <= 0 && vector.y < 0)
 	{
-		if (PatchFinder({ step.x, step.y + 1 }) == true) return true;
-		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
-		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
-		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y + 1 }) == true) return true;
+		if (RecursivePathFinder({ step.x - 1, step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x + 1  , step.y }) == true)  return true;
 	}
 	else if (vector.x < 0 && vector.y >= 0)
 	{
-		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
-		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
-		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
-		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x - 1, step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y + 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x + 1  , step.y }) == true)  return true;
 	}
 	else if (vector.x >= 0 && vector.y > 0)
 	{
-		if (PatchFinder({ step.x, step.y - 1 }) == true)   return true;
-		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
-		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
-		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y - 1 }) == true)   return true;
+		if (RecursivePathFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x - 1, step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y + 1 }) == true)  return true;
 	}
 	else if (vector.x > 0 && vector.y <= 0)
 	{
-		if (PatchFinder({ step.x + 1  , step.y }) == true)  return true;
-		if (PatchFinder({ step.x, step.y + 1 }) == true)  return true;
-		if (PatchFinder({ step.x, step.y - 1 }) == true)  return true;
-		if (PatchFinder({ step.x - 1, step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x + 1  , step.y }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y + 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x, step.y - 1 }) == true)  return true;
+		if (RecursivePathFinder({ step.x - 1, step.y }) == true)  return true;
 	}
 
 	maze[((step.y) * width) + step.x] = ' ';
@@ -136,10 +121,16 @@ bool Maze::PatchFinder(Point step)
 	
 }
 
-void Maze::ExitPointPlacement()
+void Maze::PlaceExits()
 {
+	if (Exit != nullptr)
+	{
+		for(int i=0;i<exitNumber;i++)
+			maze[Exit[i].y * width + Exit[i].x] = 'E';
+		return;
+	}
+	
 	Exit = new Point[exitNumber];
-	path = new std::vector<Point>();
 
 	for (int i = 0; i < exitNumber; i++)
 	{
@@ -164,19 +155,18 @@ void Maze::ExitPointPlacement()
 		default:
 			std::cout << "Error: ExitNumber to big" << std::endl;
 			break;
-		}
-
+		}	
 		maze[Exit[i].y * width + Exit[i].x] = 'E';
 	}
 }
 
 void Maze::CenterSquereGenerator()
 {
-	int squareSide = IntRandom(3, std::min(height, width) - 5);
+	int squareSide = GetRandomInt(3, std::min(height, width) - 5);
 	int squareCenter = squareSide * (squareSide / 2) + (squareSide / 2);
-	int mazeCenter = Center.x+(Center.y)*width;
-
+	int mazeCenter = Center.x + (Center.y) * width;
 	int startPoint = mazeCenter - (squareCenter % squareSide) - width * (squareSide/2);
+
 	for (int i=0; i<squareSide;i++)
 	{
 		for (int j = 0; j < squareSide; j++)
@@ -184,18 +174,18 @@ void Maze::CenterSquereGenerator()
 	}
 }
 
-
-
 Maze::Maze() : height(0), width(0), exitNumber(0), maze(nullptr), Exit(nullptr),path(nullptr)
 {
 	Center.x = 0;
 	Center.y = 0;
+	path = new std::vector<Point>();
 }
 
 Maze::Maze(int _height, int _width, int _extitNumber) :height(_height), width(_width), exitNumber(_extitNumber), maze(nullptr), Exit(nullptr), path(nullptr)
 {
 	Center.x = 0;
 	Center.y = 0;
+	path = new std::vector<Point>();
 }
 
 Maze::~Maze()
@@ -211,17 +201,17 @@ void Maze::GenerteMaze()
 		std::cout << "Nither height nor width can be smaller than 8" << std::endl;
 		return;
 	}
-	else if (height % 2 == 0 || width % 2 == 0)
+	if (height % 2 == 0 || width % 2 == 0)
 	{
 		std::cout << "Nither height nor width can be even" << std::endl;
 		return;
 	}
-	else if (exitNumber == 0 || exitNumber > 4)
+	if (exitNumber == 0 || exitNumber > 4)
 	{
 		std::cout << "Exit number must be higher than 0 and smaller than 8!" << std::endl;
 		return;
 	}
-	else if (maze != nullptr)
+	if (maze != nullptr)
 	{
 		std::cout << "Maze has been already generated" << std::endl;
 		return;
@@ -232,22 +222,17 @@ void Maze::GenerteMaze()
 		maze[i] = 'X';
 	
 	Center.y = height / 2;
-	Center.x = width / 2;
-
+	Center.x = width / 2;	
 	
-	
-
-	
-	
-	ExitPointPlacement();
-	MazeGenerator({ 1,1 });
+	RecursiveMazeGenerator({ 1,1 });
+	PlaceExits();
 	CenterSquereGenerator();
 	
-	
 	maze[width * (height / 2) + (width / 2)] = 'S';
+
 	for (int i = 0; i < exitNumber; i++)
 	{
-		PatchFinder(Exit[i]);
+		RecursivePathFinder(Exit[i]);
 		for(int j=0;j<height*width;j++)
 			if (maze[j]=='o')
 				maze[j]=' ';
@@ -256,8 +241,7 @@ void Maze::GenerteMaze()
 	for (int i = 0; i < path->size(); i++)
 		maze[((path->at(i).y) * width) + path->at(i).x] = 'o';
 	
-	
-	ExitPointPlacement();
+	PlaceExits();
 }
 
 int Maze::SetHeight(int _height)

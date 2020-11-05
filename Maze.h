@@ -24,17 +24,17 @@ private:
 	char* maze;
 	std::vector<Point>* path;
 
-	int IntRandom(int floor, int ceiling);
+	int GetRandomInt(int floor, int ceiling);
 	void SuffleArray(int*arra);
-	void MazeGenerator(Point step);
-	bool PatchFinder(Point step);
-	void ExitPointPlacement();
+	void RecursiveMazeGenerator(Point step);
+	bool RecursivePathFinder(Point step);
+	void PlaceExits();
 	void CenterSquereGenerator();
 
 
 public:
 	Maze();
-	Maze(int _height, int _width, int _extiNumber); // Zobaczymy czy nie wywaliæ
+	Maze(int _height, int _width, int _extiNumber);
 	~Maze();
 	void GenerteMaze();
 	int SetHeight(int _height);
