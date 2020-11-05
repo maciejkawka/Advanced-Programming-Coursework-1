@@ -5,14 +5,13 @@ int main()
 {
 	UI main;
 	int input;
-	do {
-		
+	do {		
 		main.Welcome();
 		main.Print();
 		std::cin >> input;
 		switch (input)
 		{
-		case 0:
+		case 7:
 			exit(0);
 		case 1:
 			main.SetDimentions();
@@ -37,7 +36,6 @@ int main()
 			system("pause");
 			break;
 		}
-
 	} while (true);
 
 }

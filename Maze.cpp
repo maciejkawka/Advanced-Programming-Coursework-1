@@ -1,8 +1,7 @@
 #include "Maze.h"
 
 int Maze::GetRandomInt(int floor, int ceiling)
-{
-	
+{	
 	return (rand() % (ceiling-floor+1)) + floor;
 }
 
@@ -258,6 +257,11 @@ int Maze::SetHeight(int _height)
 		std::cout << "Maze has been already generated" << std::endl;
 		return 0;
 	}
+	if (_height > 51)
+	{
+		std::cout << "Width must be smaller than 52!" << std::endl;
+		return -1;
+	}
 	height = _height;
 	return 0;
 }
@@ -277,6 +281,11 @@ int Maze::SetWidth(int _width)
 	if (maze != nullptr)
 	{
 		std::cout << "Maze has been already generated" << std::endl;
+		return -1;
+	}
+	if (_width > 51)
+	{
+		std::cout << "Width must be smaller than 52!" << std::endl;
 		return -1;
 	}
 	width = _width;
