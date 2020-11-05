@@ -287,11 +287,11 @@ int Maze::SetExitNumber(int _exitNumber)
 	return 0;
 }
 
-void Maze::Print()
+void Maze::Print() const
 {
 	if (maze == nullptr)
 	{
-		std::cout << "Maze is not generated!!" << std::endl;
+		std::cout << "Maze cannot be generated!!" << std::endl;
 		return;
 	}
 	for (int i = 0; i < height; i++)
@@ -316,6 +316,12 @@ void Maze::LoadMaze(std::string filePath)
 		{
 			width++;
 			inputMaze += buffor;
+			if (inputMaze.size() / width != buffor.size())
+			{
+				std::cout << "This is not a maze!! File:" << filePath << std::endl;
+				file.close();
+				return;
+			}
 		}
 		//Ask which one is better
 		height = inputMaze.size() / width;
