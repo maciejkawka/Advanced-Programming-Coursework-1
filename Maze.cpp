@@ -191,6 +191,11 @@ Maze::~Maze()
 
 void Maze::GenerteMaze()
 {
+	if (maze != nullptr)
+	{
+		std::cout << "Maze has been already generated" << std::endl;
+		return;
+	}
 	if (height < 8|| width < 8 )
 	{
 		std::cout << "Nither height nor width can be smaller than 8" << std::endl;
@@ -206,11 +211,7 @@ void Maze::GenerteMaze()
 		std::cout << "Exit number must be higher than 0 and smaller than 8!" << std::endl;
 		return;
 	}
-	if (maze != nullptr)
-	{
-		std::cout << "Maze has been already generated" << std::endl;
-		return;
-	}
+
 
 	maze = new char[height * width];
 	for (int i = 0; i < height * width; i++)
@@ -225,6 +226,8 @@ void Maze::GenerteMaze()
 	
 	maze[width * (height / 2) + (width / 2)] = 'S';
 
+	if (Exit == nullptr)
+		return;
 	for (int i = 0; i < exitNumber; i++)
 	{
 		RecursivePathFinder(Exit[i]);
@@ -297,4 +300,60 @@ void Maze::Print()
 			std::cout << maze[i * width + j];
 		std::cout << std::endl;
 	}
+}
+
+void Maze::LoadMaze(std::string filePath)
+{
+	std::ifstream file;
+
+	file.open(filePath, std::ios::in);
+	if (file.good())
+	{
+		std::string buffor;
+		std::string inputMaze;
+		
+		while (std::getline(file, buffor))
+		{
+			width++;
+			inputMaze += buffor;
+		}
+		//Ask which one is better
+		height = inputMaze.size() / width;
+		//GetHeight(inputMaze.size() / width);
+		Center.y = height / 2;
+		Center.x = width / 2;
+		maze = new char[height * width];
+
+		for (int i = 0; i < width * height; i++)
+			maze[i] = inputMaze[i];
+		
+		file.close();
+	}
+	else
+	{
+		std::cout << "The file doesn't exits: " << filePath << std::endl;
+		return;
+	}
+
+}
+
+void Maze::SaveMaze(std::string filePath) const
+{
+	if (maze == nullptr)
+	{
+		std::cout << "Maze is not generated!!" << std::endl;
+		return;
+	}
+
+	std::ofstream file;
+
+	file.open(filePath, std::ios::trunc| std::ios::out);
+	
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+			file << maze[i * width + j];
+		file << std::endl;
+	}
+	file.close();
 }

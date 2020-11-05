@@ -5,6 +5,8 @@
 #include <time.h> 
 #include<algorithm>
 #include<vector>
+#include <fstream>
+#include<string>
 
 struct Point {
 
@@ -41,15 +43,14 @@ public:
 	int SetWidth(int _width);
 	int SetExitNumber(int _exitNumber);
 	void Print();
-
 	inline int GetHeight() const { return height; }
 	inline int GetWidht() const { return width; }
 	inline int GetExitNumer() const { return exitNumber; }
 
 
 
-	void LoadMaze(std::string fileName);
-	void SaveMaze(std::string fileName) const;
+	void LoadMaze(std::string filePath);
+	void SaveMaze(std::string filePath) const;
 
 
 
