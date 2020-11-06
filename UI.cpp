@@ -25,13 +25,14 @@ void UI::Print()
 int UI::InputInt()
 {
 	int input;
-	do {
+
+	while (!(std::cin >> input))
+	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cin >> input;
-	} while (std::cin.fail());
+		
+	}
 
-	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	return input;
 }
