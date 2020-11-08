@@ -309,7 +309,7 @@ int Maze::SetExitNumber(int _exitNumber)
 	return 0;
 }
 
-void Maze::Reset()
+void Maze::Reset()  //NOT USED
 {
 	if (maze == nullptr)
 		std::cout << "Maze is not generated!!" << std::endl;
