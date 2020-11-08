@@ -42,14 +42,12 @@ public:
 	int SetHeight(int _height);
 	int SetWidth(int _width);
 	int SetExitNumber(int _exitNumber);
-	void Reset();
+	void Reset(); //NOT USED
 	void Print() const;
 
 	void LoadMaze(std::string filePath);
 	void SaveMaze(std::string filePath) const;
 	
-	inline int GetHeight() const { return height; } //Not used
-	inline int GetWidht() const { return width; } //Not used
-	inline int GetExitNumer() const { return exitNumber; }//Not used
+
 	
 };

@@ -75,7 +75,9 @@ void UI::GenerateMaze()
 void UI::Reset()
 {
 	system("CLS");
-	mainMaze->Reset();
+	delete mainMaze;
+	mainMaze = new Maze();
+	
 	system("pause");
 }
 
