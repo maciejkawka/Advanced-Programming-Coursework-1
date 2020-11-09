@@ -3,6 +3,7 @@
 
 int main()
 {
+	srand(time(NULL));
 	UI main;
 	int input;
 	do {		
